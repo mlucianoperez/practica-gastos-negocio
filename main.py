@@ -55,16 +55,21 @@ agregar_gasto(
 
 ver_gastos(gastos_negocio)
 
-print(buscar_por_categoria(gastos_negocio, "INSUMOS"))
-print(total_por_categoria(gastos_negocio, "insumos"))
+
 
 
 while True:
+    print("2. Agregar un gasto nuevo")
     print("1. Ver todos los gastos")
     print("0. Salir")
     opcion = input("Elige una opción: ")
 
-    if opcion == "1":
+    if opcion == "2":
+        descripcion = input("Descripción: ")
+        monto = input("Monto: ")
+        categoria = input("Categoría: ")
+        agregar_gasto(gastos_negocio, descripcion, monto, categoria)
+    elif opcion == "1":
         ver_gastos(gastos_negocio)
     elif opcion == "0":
         print("Hasta luego")
