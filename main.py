@@ -5,9 +5,37 @@ gastos_negocio = [
 ]
 
 
-def main():
-    print("Hello from practica-gastos-negocio!")
+def agregar_gasto(gastos, descripcion, monto, categoria):
+    nuevo_gasto = {
+        "descripcion": descripcion,
+        "monto": monto,
+        "categoria": categoria
+    }
+
+    gastos.append(nuevo_gasto)
+
+    return nuevo_gasto
 
 
-if __name__ == "__main__":
-    main()
+def ver_gastos(gastos):
+    for gasto in gastos:
+        print(
+            f"{gasto['descripcion']} "
+            f"({gasto['categoria']}): "
+            f"${gasto['monto']}"
+        )
+
+
+ver_gastos(gastos_negocio)
+
+agregar_gasto(
+    gastos_negocio,
+    "Compra de tijeras",
+    800.00,
+    "Insumos"
+)
+
+ver_gastos(gastos_negocio)
+
+
+
