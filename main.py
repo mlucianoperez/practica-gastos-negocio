@@ -17,6 +17,24 @@ def agregar_gasto(gastos, descripcion, monto, categoria):
     return nuevo_gasto
 
 
+def buscar_por_categoria(gastos, categoria_buscada):
+    resultado = []
+
+    for gasto in gastos:
+        if gasto["categoria"].lower() == categoria_buscada.lower():
+            resultado.append(gasto)
+
+    return resultado
+
+
+def total_por_categoria(gastos, categoria_buscada):
+    total = 0
+    for gasto in gastos:
+        if gasto["categoria"].lower() == categoria_buscada.lower():
+            total += gasto["monto"]
+    return total
+
+
 def ver_gastos(gastos):
     for gasto in gastos:
         print(
@@ -36,6 +54,9 @@ agregar_gasto(
 )
 
 ver_gastos(gastos_negocio)
+
+print(buscar_por_categoria(gastos_negocio, "INSUMOS"))
+print(total_por_categoria(gastos_negocio, "insumos"))
 
 
 
