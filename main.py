@@ -10,6 +10,12 @@ class GestorGastos:
         self.gastos = gastos
 
     def agregar_gasto(self, descripcion, monto, categoria):
+        try:
+            monto = float(monto)
+        except ValueError:
+            print("El monto debe ser un número. Gasto no agregado.")
+            return None
+
         nuevo_gasto = {
             "descripcion": descripcion,
             "monto": monto,
@@ -52,7 +58,7 @@ gestor.ver_gastos()
 
 gestor.agregar_gasto(
     "Compra de tijeras",
-    800.00,
+    "800.00",
     "Insumos"
 )
 
