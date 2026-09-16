@@ -59,12 +59,18 @@ ver_gastos(gastos_negocio)
 
 
 while True:
+    print("3. Buscar gastos por categoria")
     print("2. Agregar un gasto nuevo")
     print("1. Ver todos los gastos")
     print("0. Salir")
     opcion = input("Elige una opción: ")
 
-    if opcion == "2":
+    if opcion == "3":
+        categoria_buscada = input("Categoría: ")
+        resultados = buscar_por_categoria(gastos_negocio, categoria_buscada)
+        for gasto in resultados:
+            print(gasto)
+    elif opcion == "2":
         descripcion = input("Descripción: ")
         monto = input("Monto: ")
         categoria = input("Categoría: ")
