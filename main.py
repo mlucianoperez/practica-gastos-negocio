@@ -5,55 +5,58 @@ gastos_negocio = [
 ]
 
 
-def agregar_gasto(gastos, descripcion, monto, categoria):
-    nuevo_gasto = {
-        "descripcion": descripcion,
-        "monto": monto,
-        "categoria": categoria
-    }
+class GestorGastos:
+    def __init__(self, gastos):
+        self.gastos = gastos
 
-    gastos.append(nuevo_gasto)
+    def agregar_gasto(self, descripcion, monto, categoria):
+        nuevo_gasto = {
+            "descripcion": descripcion,
+            "monto": monto,
+            "categoria": categoria
+        }
 
-    return nuevo_gasto
+        self.gastos.append(nuevo_gasto)
+
+        return nuevo_gasto
+
+    def buscar_por_categoria(self, categoria_buscada):
+        resultado = []
+
+        for gasto in self.gastos:
+            if gasto["categoria"].lower() == categoria_buscada.lower():
+                resultado.append(gasto)
+
+        return resultado
+
+    def total_por_categoria(self, categoria_buscada):
+        total = 0
+        for gasto in self.gastos:
+            if gasto["categoria"].lower() == categoria_buscada.lower():
+                total += gasto["monto"]
+        return total
+
+    def ver_gastos(self):
+        for gasto in self.gastos:
+            print(
+                f"{gasto['descripcion']} "
+                f"({gasto['categoria']}): "
+                f"${gasto['monto']}"
+            )
 
 
-def buscar_por_categoria(gastos, categoria_buscada):
-    resultado = []
-
-    for gasto in gastos:
-        if gasto["categoria"].lower() == categoria_buscada.lower():
-            resultado.append(gasto)
-
-    return resultado
+gestor = GestorGastos(gastos_negocio)
 
 
-def total_por_categoria(gastos, categoria_buscada):
-    total = 0
-    for gasto in gastos:
-        if gasto["categoria"].lower() == categoria_buscada.lower():
-            total += gasto["monto"]
-    return total
+gestor.ver_gastos()
 
-
-def ver_gastos(gastos):
-    for gasto in gastos:
-        print(
-            f"{gasto['descripcion']} "
-            f"({gasto['categoria']}): "
-            f"${gasto['monto']}"
-        )
-
-
-ver_gastos(gastos_negocio)
-
-agregar_gasto(
-    gastos_negocio,
+gestor.agregar_gasto(
     "Compra de tijeras",
     800.00,
     "Insumos"
 )
 
-ver_gastos(gastos_negocio)
+gestor.ver_gastos()
 
 
 
@@ -68,20 +71,20 @@ while True:
 
     if opcion == "4":
         categoria_buscada = input("Categoría: ")
-        total = total_por_categoria(gastos_negocio, categoria_buscada)
+        total = gestor.total_por_categoria(categoria_buscada)
         print(f"Total gastado: ${total:.2f}")
     elif opcion == "3":
         categoria_buscada = input("Categoría: ")
-        resultados = buscar_por_categoria(gastos_negocio, categoria_buscada)
+        resultados = gestor.buscar_por_categoria(categoria_buscada)
         for gasto in resultados:
             print(gasto)
     elif opcion == "2":
         descripcion = input("Descripción: ")
         monto = input("Monto: ")
         categoria = input("Categoría: ")
-        agregar_gasto(gastos_negocio, descripcion, monto, categoria)
+        gestor.agregar_gasto(descripcion, monto, categoria)
     elif opcion == "1":
-        ver_gastos(gastos_negocio)
+        gestor.ver_gastos()
     elif opcion == "0":
         print("Hasta luego")
         break
